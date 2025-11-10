@@ -10,13 +10,13 @@ from fastapi.responses import JSONResponse
 from psycopg2.extensions import connection as Conn
 from passlib.context import CryptContext
 from dotenv import load_dotenv
-from resend import Resend
+# import resend
 
 APP_URL = os.getenv("APP_URL", "http://localhost:3000")
 RESEND_FROM_EMAIL = os.getenv("RESEND_FROM_EMAIL")
 router = APIRouter(prefix="/auth", tags=["auth"])
 # resend client
-resend_client = Resend(api_key=os.getenv("RESEND_API_KEY"))
+# resend_client = resend(api_key=os.getenv("RESEND_API_KEY"))
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 class RegisterRequest(BaseModel):
@@ -105,22 +105,22 @@ async def register_user(data: RegisterRequest, response: Response, db=Depends(ge
         # Send verification email
         verify_url = f"{APP_URL}/auth/forget/verify-email?email={email}&code={verification_code}"
 
-        try:
-            resend_client.emails.send(
-                from_=f"WebExaltia <{RESEND_FROM_EMAIL}>",
-                to=[data.email],
-                subject="Email Verification Code — rrely.io",
-                html=f"""
-                    <h2>Welcome to rrely.io</h2>
-                    <p>Your verification code is <strong>{verification_code}</strong>.</p>
-                    <p>First Name: <strong>{first_name}</strong>.</p>
-                    <p>Last Name: <strong>{last_name}</strong>.</p>
-                    <p>Email: <strong>{email}</strong>.</p>
-                    <p>Or click <a href="{verify_url}">here</a> to verify your email.</p>
-                """,
-            )
-        except Exception as e:
-            raise HTTPException(status_code=500, detail=f"Failed to send email: {e}")
+        # try:
+        #     resend_client.emails.send(
+        #         from_=f"WebExaltia <{RESEND_FROM_EMAIL}>",
+        #         to=[data.email],
+        #         subject="Email Verification Code — rrely.io",
+        #         html=f"""
+        #             <h2>Welcome to rrely.io</h2>
+        #             <p>Your verification code is <strong>{verification_code}</strong>.</p>
+        #             <p>First Name: <strong>{first_name}</strong>.</p>
+        #             <p>Last Name: <strong>{last_name}</strong>.</p>
+        #             <p>Email: <strong>{email}</strong>.</p>
+        #             <p>Or click <a href="{verify_url}">here</a> to verify your email.</p>
+        #         """,
+        #     )
+        # except Exception as e:
+        #     raise HTTPException(status_code=500, detail=f"Failed to send email: {e}")
 
         create_session(response, user_id, email)
         return {"message": "User registered successfully", "status": "success"}
