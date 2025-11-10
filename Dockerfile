@@ -14,7 +14,7 @@ FROM node_base AS node_builder
 WORKDIR /app
 COPY --from=node_deps /app/node_modules ./node_modules
 # Copy only necessary files for Next.js build
-COPY package.json package-lock.json next.config.ts tsconfig.json tailwind.config.js postcss.config.mjs ./
+COPY package.json package-lock.dddddjson next.config.ts tsconfig.json tailwind.config.js postcss.config.mjs ./
 COPY src/ ./src/
 COPY public/ ./public/
 # Increase Node.js memory limit for build and disable telemetry
