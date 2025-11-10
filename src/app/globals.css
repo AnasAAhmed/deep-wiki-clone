@@ -4,17 +4,31 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 :root {
-  /* Japanese aesthetic color palette - light mode */
-  --background: #f8f4e6; /* Warm off-white like washi paper */
-  --foreground: #333333; /* Soft black for text */
+  /* Base Colors */
+  --background: #ffffff; /* Slightly cool light background */
+  --foreground: #1e1e1e; /* Neutral dark text */
   --shadow-color: rgba(0, 0, 0, 0.05);
-  --accent-primary: #9b7cb9; /* Soft purple (Fuji) */
-  --accent-secondary: #d7c4bb; /* Soft beige (Kinari) */
-  --border-color: #e0d8c8; /* Soft beige border */
-  --card-bg: #fffaf0; /* Slightly warmer than background */
-  --highlight: #e8927c; /* Soft coral (Akane) */
-  --muted: #a59e8c; /* Soft gray-brown (Nezumi) */
-  --link-color: #7c5aa0; /* Slightly darker purple for links */
+  --card-bg: #ffffff; /* Clean white for cards */
+  --border-color: #e0e6ed; /* Soft gray-blue border */
+  --highlight: #e57373; /* Soft red */
+
+  /* Primary Palette */
+  --accent-primary: #1DA1F2; /* Blue - main accent (buttons, focus, highlights) */
+  --accent-primary-hover: #0C7ABF; /* Dark Blue - hover or active state */
+
+  /* Feedback Colors */
+  --accent-red: #E63946; /* Error or danger */
+  --accent-green: #2ECC71; /* Success or confirmation */
+  --accent-orange: #F4A261; /* Optional secondary accent */
+  --accent-indigo: #6366F1; /* Decorative accent or subtle borders */
+
+  /* Typography and Links */
+  --link-color: #1DA1F2; /* Match primary blue */
+  --muted: #6b7280; /* Neutral gray text for less emphasis */
+
+  /* Gradients (optional aesthetic usage) */
+  --gradient-soft: linear-gradient(135deg, #ffffff, #f4f7fb);
+  --gradient-accent: linear-gradient(135deg, #1DA1F2, #6366F1);
 }
 
 html[data-theme='dark'] {
@@ -22,8 +36,8 @@ html[data-theme='dark'] {
   --background: #1a1a1a; /* Deep charcoal */
   --foreground: #f0f0f0; /* Soft white */
   --shadow-color: rgba(0, 0, 0, 0.2);
-  --accent-primary: #9370db; /* Soft lavender */
-  --accent-secondary: #5d4037; /* Warm brown */
+  --accent-primary: #1DA1F2; /* Blue - main accent (buttons, focus, highlights) */
+  --accent-primary-hover: #0C7ABF;
   --border-color: #2c2c2c; /* Dark border */
   --card-bg: #222222; /* Slightly lighter than background */
   --highlight: #e57373; /* Soft red */

@@ -111,7 +111,7 @@ export default function Home() {
     if (newRepoUrl.trim() === "") {
       // Optionally reset fields if input is cleared
     } else {
-        loadConfigFromCache(newRepoUrl);
+      loadConfigFromCache(newRepoUrl);
     }
   };
 
@@ -266,8 +266,8 @@ export default function Home() {
 
   const validateAuthCode = async () => {
     try {
-      if(authRequired) {
-        if(!authCode) {
+      if (authRequired) {
+        if (!authCode) {
           return false;
         }
         const response = await fetch('/api/auth/validate', {
@@ -275,7 +275,7 @@ export default function Home() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({'code': authCode})
+          body: JSON.stringify({ 'code': authCode })
         });
         if (!response.ok) {
           return false;
@@ -293,7 +293,7 @@ export default function Home() {
 
     // Check authorization code
     const validation = await validateAuthCode();
-    if(!validation) {
+    if (!validation) {
       setError(`Failed to validate the authorization code`);
       console.error(`Failed to validate the authorization code`);
       setIsConfigModalOpen(false);
@@ -400,13 +400,21 @@ export default function Home() {
               <FaWikipediaW className="text-2xl text-white" />
             </div>
             <div className="mr-6">
-              <h1 className="text-xl md:text-2xl font-bold text-[var(--accent-primary)]">{t('common.appName')}</h1>
+              <Link href={'/'}>
+                <h1 className="text-4xl hover:scale-105 duration-300 text-shadow-2xs text-shadow-[#67bbf0] font-bold text-[#1DA1F2] tracking-tight select-none mb-2">
+                  rrely.io
+                </h1>
+              </Link>
               <div className="flex flex-wrap items-baseline gap-x-2 md:gap-x-3 mt-0.5">
                 <p className="text-xs text-[var(--muted)] whitespace-nowrap">{t('common.tagline')}</p>
-                <div className="hidden md:inline-block">
+                <div className="flex items-center space-x-3 justify-between md:inline-block">
                   <Link href="/wiki/projects"
                     className="text-xs font-medium text-[var(--accent-primary)] hover:text-[var(--highlight)] hover:underline whitespace-nowrap">
                     {t('nav.wikiProjects')}
+                  </Link>
+                  <Link href="/pricing"
+                    className="text-xs font-medium text-[var(--accent-primary)] hover:text-[var(--highlight)] hover:underline whitespace-nowrap">
+                    pricing
                   </Link>
                 </div>
               </div>
@@ -517,7 +525,11 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row items-center mb-6 gap-4">
                   <div className="relative">
                     <div className="absolute -inset-1 bg-[var(--accent-primary)]/20 rounded-full blur-md"></div>
-                    <FaWikipediaW className="text-5xl text-[var(--accent-primary)] relative z-10" />
+                    <Link href={'/'}>
+                      <h1 className="text-4xl hover:scale-105 duration-300 text-shadow-2xs text-shadow-[#67bbf0] font-bold text-center text-[#1DA1F2] tracking-tight select-none mb-2">
+                        rrely.io
+                      </h1>
+                    </Link>
                   </div>
                   <div className="text-center sm:text-left">
                     <h2 className="text-2xl font-bold text-[var(--foreground)] font-serif mb-1">{t('home.welcome')}</h2>
@@ -530,96 +542,71 @@ export default function Home() {
                 </p>
               </div>
 
-          {/* Quick Start section - redesigned for better spacing */}
-          <div
-            className="w-full max-w-2xl mb-10 bg-[var(--accent-primary)]/5 border border-[var(--accent-primary)]/20 rounded-lg p-5">
-            <h3 className="text-sm font-semibold text-[var(--accent-primary)] mb-3 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              {t('home.quickStart')}
-            </h3>
-            <p className="text-sm text-[var(--foreground)] mb-3">{t('home.enterRepoUrl')}</p>
-            <div className="grid grid-cols-1 gap-3 text-xs text-[var(--muted)]">
+              {/* Quick Start section - redesigned for better spacing */}
               <div
-                className="bg-[var(--background)]/70 p-3 rounded border border-[var(--border-color)] font-mono overflow-x-hidden whitespace-nowrap"
-              >https://github.com/AsyncFuncAI/deepwiki-open
-              </div>
-              <div
-                className="bg-[var(--background)]/70 p-3 rounded border border-[var(--border-color)] font-mono overflow-x-hidden whitespace-nowrap"
-              >https://gitlab.com/gitlab-org/gitlab
-              </div>
-              <div
-                className="bg-[var(--background)]/70 p-3 rounded border border-[var(--border-color)] font-mono overflow-x-hidden whitespace-nowrap"
-              >AsyncFuncAI/deepwiki-open
-              </div>
-              <div
-                className="bg-[var(--background)]/70 p-3 rounded border border-[var(--border-color)] font-mono overflow-x-hidden whitespace-nowrap"
-              >https://bitbucket.org/atlassian/atlaskit
-              </div>
-            </div>
-          </div>
-
-          {/* Visualization section - improved for better visibility */}
-          <div
-            className="w-full max-w-2xl mb-8 bg-[var(--background)]/70 rounded-lg p-6 border border-[var(--border-color)]">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-[var(--accent-primary)] flex-shrink-0 mt-0.5 sm:mt-0" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-              <h3 className="text-base font-semibold text-[var(--foreground)] font-serif">{t('home.advancedVisualization')}</h3>
-            </div>
-            <p className="text-sm text-[var(--foreground)] mb-5 leading-relaxed">
-              {t('home.diagramDescription')}
-            </p>
-
-            {/* Diagrams with improved layout */}
-            <div className="grid grid-cols-1 gap-6">
-              <div className="bg-[var(--card-bg)] p-4 rounded-lg border border-[var(--border-color)] shadow-custom">
-                <h4 className="text-sm font-medium text-[var(--foreground)] mb-3 font-serif">{t('home.flowDiagram')}</h4>
-                <Mermaid chart={DEMO_FLOW_CHART} />
+                className="w-full max-w-2xl mb-10 bg-[var(--accent-primary)]/5 border border-[var(--accent-primary)]/20 rounded-lg p-5">
+                <h3 className="text-sm font-semibold text-[var(--accent-primary)] mb-3 flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {t('home.quickStart')}
+                </h3>
+                <p className="text-sm text-[var(--foreground)] mb-3">{t('home.enterRepoUrl')}</p>
+                <div className="grid grid-cols-1 gap-3 text-xs text-[var(--muted)]">
+                  <div
+                    className="bg-[var(--background)]/70 p-3 rounded border border-[var(--border-color)] font-mono overflow-x-hidden whitespace-nowrap"
+                  >https://github.com/AsyncFuncAI/deepwiki-open
+                  </div>
+                  <div
+                    className="bg-[var(--background)]/70 p-3 rounded border border-[var(--border-color)] font-mono overflow-x-hidden whitespace-nowrap"
+                  >https://gitlab.com/gitlab-org/gitlab
+                  </div>
+                  <div
+                    className="bg-[var(--background)]/70 p-3 rounded border border-[var(--border-color)] font-mono overflow-x-hidden whitespace-nowrap"
+                  >AsyncFuncAI/deepwiki-open
+                  </div>
+                  <div
+                    className="bg-[var(--background)]/70 p-3 rounded border border-[var(--border-color)] font-mono overflow-x-hidden whitespace-nowrap"
+                  >https://bitbucket.org/atlassian/atlaskit
+                  </div>
+                </div>
               </div>
 
-              <div className="bg-[var(--card-bg)] p-4 rounded-lg border border-[var(--border-color)] shadow-custom">
-                <h4 className="text-sm font-medium text-[var(--foreground)] mb-3 font-serif">{t('home.sequenceDiagram')}</h4>
-                <Mermaid chart={DEMO_SEQUENCE_CHART} />
+              {/* Visualization section - improved for better visibility */}
+              <div
+                className="w-full max-w-2xl mb-8 bg-[var(--background)]/70 rounded-lg p-6 border border-[var(--border-color)]">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 text-[var(--accent-primary)] flex-shrink-0 mt-0.5 sm:mt-0" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                  <h3 className="text-base font-semibold text-[var(--foreground)] font-serif">{t('home.advancedVisualization')}</h3>
+                </div>
+                <p className="text-sm text-[var(--foreground)] mb-5 leading-relaxed">
+                  {t('home.diagramDescription')}
+                </p>
+
+                {/* Diagrams with improved layout */}
+                <div className="grid grid-cols-1 gap-6">
+                  <div className="bg-[var(--card-bg)] p-4 rounded-lg border border-[var(--border-color)] shadow-custom">
+                    <h4 className="text-sm font-medium text-[var(--foreground)] mb-3 font-serif">{t('home.flowDiagram')}</h4>
+                    <Mermaid chart={DEMO_FLOW_CHART} />
+                  </div>
+
+                  <div className="bg-[var(--card-bg)] p-4 rounded-lg border border-[var(--border-color)] shadow-custom">
+                    <h4 className="text-sm font-medium text-[var(--foreground)] mb-3 font-serif">{t('home.sequenceDiagram')}</h4>
+                    <Mermaid chart={DEMO_SEQUENCE_CHART} />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
             </>
           )}
         </div>
       </main>
-
-      <footer className="max-w-6xl mx-auto mt-8 flex flex-col gap-4 w-full">
-        <div
-          className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-[var(--card-bg)] rounded-lg p-4 border border-[var(--border-color)] shadow-custom">
-          <p className="text-[var(--muted)] text-sm font-serif">{t('footer.copyright')}</p>
-
-          <div className="flex items-center gap-6">
-            <div className="flex items-center space-x-5">
-              <a href="https://github.com/AsyncFuncAI/deepwiki-open" target="_blank" rel="noopener noreferrer"
-                className="text-[var(--muted)] hover:text-[var(--accent-primary)] transition-colors">
-                <FaGithub className="text-xl" />
-              </a>
-              <a href="https://buymeacoffee.com/sheing" target="_blank" rel="noopener noreferrer"
-                className="text-[var(--muted)] hover:text-[var(--accent-primary)] transition-colors">
-                <FaCoffee className="text-xl" />
-              </a>
-              <a href="https://x.com/sashimikun_void" target="_blank" rel="noopener noreferrer"
-                className="text-[var(--muted)] hover:text-[var(--accent-primary)] transition-colors">
-                <FaTwitter className="text-xl" />
-              </a>
-            </div>
-            <ThemeToggle />
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

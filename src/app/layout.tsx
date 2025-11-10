@@ -3,6 +3,8 @@ import { Noto_Sans_JP, Noto_Serif_JP, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import Footer from "@/components/Footer";
+import { Toaster } from "react-hot-toast";
 
 // Japanese-friendly fonts
 const notoSansJP = Noto_Sans_JP({
@@ -41,7 +43,9 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
           <LanguageProvider>
+            <Toaster/>
             {children}
+            <Footer/>
           </LanguageProvider>
         </ThemeProvider>
       </body>

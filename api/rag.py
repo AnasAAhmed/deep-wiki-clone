@@ -431,9 +431,11 @@ IMPORTANT FORMATTING RULES:
                 
                 # Clean repo name for filesystem (re already imported at top)
                 repo_name = re.sub(r'[^\w\-_.]', '_', repo_name)
-                index_path = os.path.join(index_dir, f"{repo_name}.index")
-                retriever_config["index_path"] = index_path
-                logger.info(f"Using index path: {index_path}")
+
+                # commented out this index_path because it is no longer supported in new faiss faiss-cpu = ">=1.7.4"
+                # index_path = os.path.join(index_dir, f"{repo_name}.index")
+                # retriever_config["index_path"] = index_path
+                # logger.info(f"Using index path: {index_path}")
             
             self.retriever = FAISSRetriever(
                 **retriever_config,
