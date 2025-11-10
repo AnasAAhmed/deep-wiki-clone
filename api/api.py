@@ -9,7 +9,7 @@ from datetime import datetime
 from pydantic import BaseModel, Field
 import google.generativeai as genai
 import asyncio
-from app.auth import router as auth_router
+from api.auth import router as auth_router
 
 # Configure logging
 from api.logging_config import setup_logging
