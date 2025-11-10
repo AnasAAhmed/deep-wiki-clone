@@ -9,6 +9,7 @@ from datetime import datetime
 from pydantic import BaseModel, Field
 import google.generativeai as genai
 import asyncio
+from app.auth import router as auth_router
 
 # Configure logging
 from api.logging_config import setup_logging
@@ -163,6 +164,8 @@ async def validate_auth_code(request: AuthorizationConfig):
     Check authorization code.
     """
     return {"success": WIKI_AUTH_CODE == request.code}
+
+app.include_router(auth_router)
 
 @app.get("/models/config", response_model=ModelConfig)
 async def get_model_config():
